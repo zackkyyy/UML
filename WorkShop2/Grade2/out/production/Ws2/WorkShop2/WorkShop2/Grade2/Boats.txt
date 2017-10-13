@@ -1,0 +1,10 @@
+17.0;Ohter;1
+12.0;Canoe;2
+42.0;Canoe;2
+71.0;Ohter;2
+13.0;sailBoat;3
+2.0;Canoe;4
+32.0;Canoe;4
+37.0;Ohter;6
+12.0;Canoe;7
+14.6;Motorsailer;10
