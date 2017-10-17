@@ -2,7 +2,7 @@ package BlackJack.model;
 
 public class Card {
 
-  public enum Color {
+  public enum color {
     Hearts,
     Spades,
     Diamonds,
@@ -11,7 +11,7 @@ public class Card {
     Hidden
   }
   
-  public enum Value {
+  public enum value {
     Two,
     Three,
     Four,
@@ -29,33 +29,33 @@ public class Card {
     Hidden
   }
   
-  private Color m_color;
-  private Value m_value;
+  private color m_color;
+  private value m_value;
   private boolean m_isHidden;
   
-  public Card(Color a_color, Value a_value) {
+  public Card(color a_color, value a_value) {
     m_value = a_value;
     m_color = a_color;
     m_isHidden = true;
   }
   
-  public Color GetColor() {
+  public color getColor() {
       if (m_isHidden)
       {
-          return Color.Hidden;
+          return color.Hidden;
       }
       return m_color;
   }
 
-  public Value GetValue() {
+  public value getValue() {
       if (m_isHidden)
       {
-          return Value.Hidden;
+          return value.Hidden;
       }
       return m_value;
   }
 
-  public void Show(boolean a_show) {
+  public void show(boolean a_show) {
       m_isHidden = !a_show;
   }
 }

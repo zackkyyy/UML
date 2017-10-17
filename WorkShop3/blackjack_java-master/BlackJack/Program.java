@@ -14,6 +14,6 @@ public class Program
     IView v = new SimpleView(); //new SwedishView();
     PlayGame ctrl = new PlayGame();
     
-    while (ctrl.Play(g, v));
+    while (ctrl.play(g, v));
   }
 }
