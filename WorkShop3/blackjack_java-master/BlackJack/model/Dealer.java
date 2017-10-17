@@ -34,10 +34,8 @@ public class Dealer extends Player {
 
   public boolean hit(Player a_player) {
     if (m_deck != null && a_player.calcScore() < g_maxScore && !isGameOver()) {
-      Card c;
-      c = m_deck.getCard();
-      c.show(true);
-      a_player.dealCard(c);
+      dealCardToPlayer(a_player , true);
+
       
       return true;
     }
@@ -51,10 +49,7 @@ public class Dealer extends Player {
         c.show(true);
       }
       while (m_hitRule.doHit(this)){
-        Card c ;
-        c = m_deck.getCard();
-        c.show(true);
-       dealCard(c);
+          dealCardToPlayer(this , true);
       }
       return true;
     }
@@ -70,6 +65,12 @@ public class Dealer extends Player {
         return true;
     }
     return false;
+  }
+
+  public void dealCardToPlayer(Player a_player , Boolean show){
+      Card c = m_deck.getCard();
+      c.show(show);
+      a_player.dealCard(c);
   }
   
 }
