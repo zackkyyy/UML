@@ -31,11 +31,11 @@ public class Game {
   {
     return m_dealer.hit(m_player);
   }
-  
+
   public boolean stand()
   {
     // TODO: Implement this according to Game_Stand.sequencediagram
-    return true;
+    return m_dealer.stand(m_player);
   }
   
   public Iterable<Card> getDealerHand()

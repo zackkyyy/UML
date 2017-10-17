@@ -8,7 +8,7 @@ public class    Deck {
   private List<Card> m_cards;
   
   public Deck() {
-    m_cards = new LinkedList<Card>();
+    m_cards = new LinkedList<>();
   
     for(int cIx = 0; cIx < Card.color.Count.ordinal(); cIx++) {
       for (int vIx = 0; vIx < Card.value.Count.ordinal(); vIx++) {
