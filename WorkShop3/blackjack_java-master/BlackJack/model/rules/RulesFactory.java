@@ -3,7 +3,8 @@ package BlackJack.model.rules;
 public class RulesFactory {
 
   public IHitStrategy getHitRule() {
-    return new BasicHitStrategy();
+     return new Soft17Rule();
+    //return new BasicHitStrategy();
   }
 
   public INewGameStrategy getNewGameRule() {

@@ -7,8 +7,10 @@ public class Player {
 
   private List<Card> m_hand;
   protected final int g_maxScore = 21;
+  private Deck m_deck= new Deck();
 
-  public Player()
+
+    public Player()
   {
   
     m_hand = new LinkedList<Card>();
@@ -69,4 +71,10 @@ public class Player {
 
     return score;
   }
+    public void getNewCard(Player a_player , Boolean show){
+        Card c = m_deck.getCard();
+        c.show(show);
+        a_player.dealCard(c);
+    }
+
 }
