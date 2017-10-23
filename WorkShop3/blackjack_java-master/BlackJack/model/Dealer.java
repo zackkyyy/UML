@@ -47,9 +47,7 @@ public class Dealer extends Player {
     public boolean stand(Player a_player) {
         if (m_deck != null) {
             showHand();
-            for (Card c : getHand()) {
-                c.show(true);
-            }
+
             while (m_hitRule.doHit(this)) {
                 a_player.getNewCard(this, true);
 

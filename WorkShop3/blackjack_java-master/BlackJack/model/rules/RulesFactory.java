@@ -12,6 +12,7 @@ public class RulesFactory {
   }
 
   public IWinStrategy getWinRule(){
-    return new BasicWinStrategy();
+    //return new DealerWinsWithEquality();
+    return new PlayerWinsWithEquality();
   }
 }

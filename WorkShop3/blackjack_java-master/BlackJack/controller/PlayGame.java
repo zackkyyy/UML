@@ -1,20 +1,29 @@
 package BlackJack.controller;
 
+import BlackJack.model.IObserver;
 import BlackJack.view.IView;
 import BlackJack.model.Game;
 
-public class PlayGame  {
+public class PlayGame  implements IObserver {
 //
-  public boolean play(Game a_game, IView a_view) {
+  private IView a_view;
+  private Game a_game;
+
+  public PlayGame (Game a_game, IView a_view){
+    this.a_view=a_view;
+    this.a_game=a_game;
+    subscribe(this);
+  }
+  public boolean play() {
+
     a_view.displayWelcomeMessage();
-
-    a_view.displayDealerHand(a_game.getDealerHand(), a_game.getDealerScore());
-    a_view.displayPlayerHand(a_game.getPlayerHand(), a_game.getPlayerScore());
-
-    if (a_game.isGameOver())
-    {
-        a_view.displayGameOver(a_game.isDealerWinner());
+    if(a_game.isGameOver()){
+      a_view.displayGameOver(a_game.isDealerWinner());
     }
+  //  a_view.displayDealerHand(a_game.getDealerHand(), a_game.getDealerScore());
+   // a_view.displayPlayerHand(a_game.getPlayerHand(), a_game.getPlayerScore());
+
+
 
     int input = a_view.getInput();
 
@@ -32,5 +41,26 @@ public class PlayGame  {
     }
 
     return input != 'q';
+  }
+
+  @Override
+  public void update() {
+
+
+    try {
+      Thread.sleep(1000);
+      a_view.displayDealerHand(a_game.getDealerHand(), a_game.getDealerScore());
+      a_view.displayPlayerHand(a_game.getPlayerHand(), a_game.getPlayerScore());
+
+
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+
+
+  }
+  private void subscribe(IObserver a_subscriber) {
+    this.a_game.addSubscribers(a_subscriber);
   }
 }

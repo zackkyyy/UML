@@ -4,9 +4,9 @@ public class Game {
 
   private Dealer m_dealer;
   private Player m_player;
-
   public Game()
   {
+
     m_dealer = new Dealer(new BlackJack.model.rules.RulesFactory());
     m_player = new Player();
   }
@@ -57,6 +57,8 @@ public class Game {
   {
     return m_player.calcScore();
   }
-    
-  
+    public void addSubscribers(IObserver a_subscriber){
+        m_player.addSubscribers(a_subscriber);
+        m_dealer.addSubscribers(a_subscriber);
+    }
 }

@@ -1,11 +1,11 @@
 package BlackJack.view;
 
-public class SimpleView implements IView 
+public class SimpleView implements IView
 {
 
   public void displayWelcomeMessage()
         {
-          for(int i = 0; i < 50; i++) {System.out.print("\n");};
+          //for(int i = 0; i < 50; i++) {System.out.print("\n");};
           System.out.println("Hello Black Jack World");
           System.out.println("Type 'p' to play, 'h' to hit, 's' to stand or 'q' to Quit\n");
         }
@@ -63,4 +63,5 @@ public class SimpleView implements IView
             }
             
         }
+
     }
