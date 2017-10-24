@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BlackJack:jar">
+    <output-path>$PROJECT_DIR$/WorkShop3/ExecutableVersion</output-path>
+    <root id="archive" name="UML-Course.jar">
+      <element id="module-output" name="UML-Course" />
+    </root>
+  </artifact>
+</component>
