@@ -3,7 +3,7 @@ package BlackJack.view;
 public class SimpleView implements IView {
 
     public void displayWelcomeMessage() {
-        blankPage();
+        //blankPage();
         System.out.println("Hello Black Jack World");
         System.out.println("Type 'p' to play, 'h' to hit, 's' to stand or 'q' to Quit\n");
     }

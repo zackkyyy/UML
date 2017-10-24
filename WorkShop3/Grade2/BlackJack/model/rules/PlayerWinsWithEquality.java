@@ -3,7 +3,7 @@ package BlackJack.model.rules;
 import BlackJack.model.Player;
 
 /**
- * Created by zack on 2017-10-23.
+ * Created by zack on 2017-10-17.
  */
 public class PlayerWinsWithEquality implements IWinStrategy {
     /**
@@ -11,11 +11,14 @@ public class PlayerWinsWithEquality implements IWinStrategy {
      */
     @Override
     public boolean isDealerWinner(Player a_player, Player a_dealer, int g_maxScore) {
-        if (a_player.calcScore() > g_maxScore && a_dealer.calcScore() < g_maxScore) {
+        if (a_player.calcScore() > g_maxScore && a_dealer.calcScore() <= g_maxScore) {
             return true;
-        }
-        return a_dealer.calcScore() > a_player.calcScore();
-
+        }else if  (a_player.calcScore() > g_maxScore && a_dealer.calcScore() > g_maxScore && a_dealer.calcScore() < a_player.calcScore() ){
+            return true;
+        }else if (a_player.calcScore() < g_maxScore && a_dealer.calcScore() < g_maxScore && a_dealer.calcScore()> a_player.calcScore()){
+            return true;
+        }else
+            return false;
     }
 
 
