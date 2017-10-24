@@ -6,14 +6,14 @@ import BlackJack.model.Player;
 
 class AmericanNewGameStrategy implements INewGameStrategy {
 
-  public boolean newGame(Deck a_deck, Dealer a_dealer, Player a_player) {
+    public boolean newGame(Deck a_deck, Dealer a_dealer, Player a_player) {
 
-      a_player.getNewCard(a_player,true);
-      a_player.getNewCard(a_dealer,true);
-      a_player.getNewCard(a_player,true);
-      a_player.getNewCard(a_dealer,false);
+        a_player.getNewCard(a_player, true);
+        a_player.getNewCard(a_dealer, true);
+        a_player.getNewCard(a_player, true);
+        a_player.getNewCard(a_dealer, false);
 
         return true;
 
-  }
+    }
 }

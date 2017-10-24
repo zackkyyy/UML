@@ -12,7 +12,7 @@ public class Soft17Rule extends BasicHitStrategy {
 
     @Override
     public boolean doHit(Player a_dealer) {
-        for (Card c: a_dealer.getHand() ) {
+        for (Card c : a_dealer.getHand()) {
 
             if (c.getValue() == Card.value.Ace && a_dealer.calcScore() == g_hitLimit) {
                 return true;
