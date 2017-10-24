@@ -13,8 +13,8 @@ import java.util.Scanner;
 public class FileHandler {
 
     private int membersNr;
-    private File membersFile = new File("Members.txt");
-    private File boatsFile = new File("Boats.txt");
+    private File membersFile = new File("WorkShop2/Grade2/Members.txt");
+    private File boatsFile = new File("WorkShop2/Grade2/Boats.txt");
 
     public FileHandler() throws UnsupportedEncodingException, FileNotFoundException {
 

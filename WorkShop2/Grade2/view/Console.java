@@ -27,13 +27,7 @@ public class Console {
 
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
-        Console start = new Console();
 
-
-        System.out.println("* Welcome to the jolly pirate *");
-        start.showAuthentication();
-    }
     /**
      * Show the authentication list to the user
      */
