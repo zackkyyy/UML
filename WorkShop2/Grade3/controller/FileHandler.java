@@ -20,7 +20,7 @@ public class FileHandler {
 
     }
 
-    public ArrayList<Member> readFile() throws IOException, NumberFormatException, ParseException{
+    public ArrayList<Member> readFile() throws IOException, NumberFormatException, ParseException {
         ArrayList<Member> membersList = new ArrayList<Member>();
         if (!membersFile.exists() || !boatsFile.exists()) {
             membersFile.createNewFile();
@@ -44,7 +44,7 @@ public class FileHandler {
             String[] temp = scan.nextLine().split(";");
             for (Member m : membersList) {
                 if (m.getID() == Integer.parseInt(temp[2])) {
-                    m.registerBoat( Double.parseDouble(temp[0]), BoatType.valueOf(temp[1]));
+                    m.registerBoat(Double.parseDouble(temp[0]), BoatType.valueOf(temp[1]));
                     break;
                 }
             }
@@ -54,17 +54,16 @@ public class FileHandler {
     }
 
 
-
     public void writeFile(ArrayList<Member> memberlist, int maxID) throws IOException {
         StringBuilder boats = new StringBuilder();
         StringBuilder members = new StringBuilder();
         PrintWriter writer = new PrintWriter(membersFile);
-        members.append(maxID+"\n");
-        for(Member m: memberlist){
-            members.append(m.getID() + ";"+m.getName()+";"+m.getPersonalNumber()+"\n");
+        members.append(maxID + "\n");
+        for (Member m : memberlist) {
+            members.append(m.getID() + ";" + m.getName() + ";" + m.getPersonalNumber() + "\n");
 
-            for(Boat b: m.getBoatList()){
-                boats.append(b.getLength()+";"+b.getBoatType().toString()+";"+m.getID()+"\n");
+            for (Boat b : m.getBoatList()) {
+                boats.append(b.getLength() + ";" + b.getBoatType().toString() + ";" + m.getID() + "\n");
 
             }
         }

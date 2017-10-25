@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
 public class Member {
     private String name;
     private String personalNumber;
@@ -54,16 +55,17 @@ public class Member {
     public void removeBoat(Boat boat) {
         this.boatList.remove(boat);
     }
+
     /**
      * Function to get the age of a member
      */
-    public int getAge(Member member) {
+    public int getAge() {
         int age;
         int year = Calendar.getInstance().get(Calendar.YEAR);  // get the current year
-        if (member.getPersonalNumber().length() == 12) {       //if the personal number has 12 digit
-            age = year - (Integer.parseInt(member.getPersonalNumber().substring(0, 4)));
+        if (this.getPersonalNumber().length() == 12) {       //if the personal number has 12 digit
+            age = year - (Integer.parseInt(this.getPersonalNumber().substring(0, 4)));
         } else {    // if it has only 10 digits
-            age = (year - 1900) - (Integer.parseInt(member.getPersonalNumber().substring(0, 2)));
+            age = (year - 1900) - (Integer.parseInt(this.getPersonalNumber().substring(0, 2)));
         }
         return age;
     }

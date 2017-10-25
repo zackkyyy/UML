@@ -5,6 +5,7 @@ import controller.MainController;
 import model.Boat;
 import model.BoatType;
 import model.Member;
+import model.searchStrategies.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,7 +18,7 @@ public class Console {
     private MainController mainController;
     private Member member;
     private Boat boat;
-    private Boolean memberLogedIn=false;        //will be used to check whether the member or the admin is logged in
+    private Boolean memberLogedIn = false;        //will be used to check whether the member or the admin is logged in
 
     // Constructor
 
@@ -27,13 +28,6 @@ public class Console {
 
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
-        Console start = new Console();
-
-
-        System.out.println("* Welcome to the jolly pirate *");
-        start.showAuthentication();
-    }
     /**
      * Show the authentication list to the user
      */
@@ -48,21 +42,21 @@ public class Console {
              /* if the user is a member will get access just
             to his information by using his personal number*/
             case ("1"):
-                memberLogedIn=true;
+                memberLogedIn = true;
                 System.out.println("Welcome to the jolly pirate");
                 System.out.println("Enter your personal number");
                 String input1 = scan.next();
                 Member member;
-                while (!checkIndex(input1)){
+                while (!checkIndex(input1)) {
                     System.err.println("Incorrect personal number");
-                    input1=scan.next();
+                    input1 = scan.next();
                 }
                 member = mainController.findMemberByPersonalNr((input1));
                 mainController.showChosenMembers(member);
                 editMemberInfo(member);
                 break;
             case ("2"):         // the user is an administrator and need a password to access
-                memberLogedIn=false;
+                memberLogedIn = false;
                 System.out.println("Enter your password");
                 String input2 = scan.next();
                 while (!input2.equals("admin")) {       // the password is always sat to be admin
@@ -80,6 +74,7 @@ public class Console {
                 break;
         }
     }
+
     /**
      * Show the main menu list to the user
      */
@@ -109,8 +104,11 @@ public class Console {
                 showMemberOptions();
                 break;
             case ("4"):
-                showFindMemberOption();
+                // showFindMemberOption();
+                ArrayList<Member> m = mainController.search(showSearchOption());
+                listMembersByVerbose(m);
                 break;
+
             case ("e"):
                 saveAndExit();
                 break;
@@ -122,49 +120,7 @@ public class Console {
 
     }
 
-    /**
-     * Show the menu for finding a member options
-     */
-    private void showFindMemberOption() throws IOException {
-        System.out.println("\nSELECT THE OPTION");
-        System.out.println("1: fine member by name ");
-        System.out.println("2: Find member by personal Number");
-        String input1 = scan.next();
-        switch (input1) {
-            case ("1"):
-                System.out.println("Enter the member's name");
-                String input2 = scan.next();
-                Member member;
-                while ( !checkIndex(input2)) {
-                    System.err.println("The name you entered is not a member in the list");
-                    input2 = scan.next();
 
-                }
-                member = mainController.findMemberByName(input2);
-                mainController.showChosenMembers(member);
-                editMemberInfo(member);
-
-            case ("2"):
-                System.out.println("Enter the member's personal number");
-                String input3 = scan.next();
-                while (!checkIndex(input3)) {
-                    System.out.println("The personal number you entered does not belong to a member");
-                    input3 = scan.next();
-
-                }
-                member = mainController.findMemberByPersonalNr((input3));
-                mainController.showChosenMembers(member);
-                editMemberInfo(member);
-
-
-
-
-            default:
-                System.err.println("Wrong option... Try Again");
-                showFindMemberOption();
-                break;
-        }
-    }
     /**
      * Show the option list for a member to the user
      */
@@ -215,6 +171,7 @@ public class Console {
             showMainMenu();
         }
     }
+
     /**
      * Show the  menu list for editing a member to the user
      */
@@ -223,7 +180,7 @@ public class Console {
         System.out.println("\nSELECT AN OPTION");
         System.out.println("1: UPDATE NAME");
         System.out.println("2: UPDATE PERSONAL NUMBER");
-        if(!memberLogedIn) {
+        if (!memberLogedIn) {
             System.out.println("3: REGISTER A BOAT");
             System.out.println("4: UPDATE A BOAT");
             System.out.println("5: DELETE A BOAT");
@@ -258,7 +215,7 @@ public class Console {
                 break;
             case ("4"):
                 boat = getBoat(member);
-                mainController.updateBoat(setLengthOfBoat(),setBoatType(),boat);
+                mainController.updateBoat(setLengthOfBoat(), setBoatType(), boat);
                 mainController.saveFile();
                 editMemberInfo(member);
 
@@ -281,7 +238,7 @@ public class Console {
                 break;
             default:
                 System.err.println("Wrong option... Try Again");
-                editMemberInfo( member);
+                editMemberInfo(member);
                 break;
         }
 
@@ -301,7 +258,7 @@ public class Console {
 
         for (Member member : m)
             // listing them by name, boat, number of boats and age
-            System.out.print("\nMEMBER ID: " + member.getID() + "\n NAME:  " + member.getName() + " BOATS: " + member.getNumberOfBoats() + " Age:  " + member.getAge(member));
+            System.out.print("\nMEMBER ID: " + member.getID() + "\n NAME:  " + member.getName() + " BOATS: " + member.getNumberOfBoats() + " Age:  " + member.getAge());
 
     }
 
@@ -317,11 +274,16 @@ public class Console {
         for (Member member : m)
             mainController.showChosenMembers(member);
     }
+
     /**
      * this function to close the program after saving all the changes
      */
-    public void saveAndExit() throws IOException {
-        mainController.saveFile();
+    public void saveAndExit() {
+        try {
+            mainController.saveFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         scan.close();
         System.exit(1);
     }
@@ -330,18 +292,19 @@ public class Console {
         System.out.print("Enter your name: \n");
         String name = scan.next();
         int i;
-        for ( i = 0; i<name.length();i++){
-            while (!Character.isLetter(name.charAt(i))){
+        for (i = 0; i < name.length(); i++) {
+            while (!Character.isLetter(name.charAt(i))) {
                 System.err.println("Name should only contain letters");
                 System.out.print("Enter your name: \n");
-                i=0;
-                name=scan.next();
+                i = 0;
+                name = scan.next();
 
             }
         }
 
-        return  name;
+        return name;
     }
+
     /**
      * @get the personal number from the user
      */
@@ -349,16 +312,17 @@ public class Console {
 
         System.out.print("Enter your personal number (yyyymmddxxxx or yymmddxxxx) : \n");
         String input = scan.next();
-        for(Member member : mainController.getMemberList()) {
+        for (Member member : mainController.getMemberList()) {
             // check if the length of the personal number .. It should be either 10 or 12 digits
             // or if the personal number is already assigned to an exist member
-            while ((input.length() != 12 && input.length() != 10) ||(member.getPersonalNumber().equals(input))) {
+            while ((input.length() != 12 && input.length() != 10) || (member.getPersonalNumber().equals(input))) {
                 System.err.println("Invalid personal number");
                 input = scan.next();
             }
         }
         return input;
     }
+
     /**
      * find member by ID chosen by user
      */
@@ -377,15 +341,16 @@ public class Console {
 
         return mainController.findMember(Integer.parseInt(input));
     }
+
     /**
      * @get the length of the boat from the user
      */
     private double setLengthOfBoat() {
         System.out.print("LENGTH(m)\n>");
         String input = scan.next();
-        for (int i=0; i<input.length() ; i++){
+        for (int i = 0; i < input.length(); i++) {
 
-            if ((!Character.isDigit(input.charAt(i) )&& (!(input.charAt(i) == '.')) )){
+            if ((!Character.isDigit(input.charAt(i)) && (!(input.charAt(i) == '.')))) {
                 System.out.println("The length contains only digits ");
                 input = scan.next();
 
@@ -427,6 +392,7 @@ public class Console {
 
         return null;
     }
+
     /**
      * get a boat for a chosen member
      */
@@ -445,15 +411,73 @@ public class Console {
         }
         return member.getBoatList().get(Integer.parseInt(input) - 1);
     }
+
     /**
      * function to check if the given username or personal number
      * belongs to one of the members in the system
      */
-    public Boolean checkIndex (String index ){
+    public Boolean checkIndex(String index) {
         for (Member member : mainController.getMemberList())
-            while (member.getPersonalNumber().equals(index) || member.getName().equals(index)){
+            while (member.getPersonalNumber().equals(index) || member.getName().equals(index)) {
                 return true;
             }
         return false;
     }
+
+    public ISearchStrategy showSearchOption() throws IOException {
+        ISearchStrategy searchStrategy = null;
+
+        System.out.println("\nSELECT THE OPTION");
+
+
+        System.out.println("1: By Name");
+        System.out.println("2: By Age");
+        System.out.println("3: By Boat type");
+        System.out.println("4: By Personal Number");
+        System.out.println("r: RETURN");
+        System.out.print("q: SAVE & QUIT\n>");
+        String input = scan.next();
+
+        if (input.equals("r"))
+            showMainMenu();
+        else if (input.equals("q"))
+            saveAndExit();
+        else {
+            try {
+                switch (input) {
+
+                    case ("1"):
+                        ByName bn = new ByName(setName());
+                        searchStrategy = bn.getSearchByName();
+                        showSearchOption();
+                    case ("2"):
+                        ByAgeEqual age = new ByAgeEqual(setAge());
+                        searchStrategy = age.getSearchByAgeEqualTo();
+                        showSearchOption();
+                    case ("3"):
+                        ByBoatType bbt = new ByBoatType(setBoatType());
+                        searchStrategy = bbt.getSearchByBoatType(setBoatType());
+                        showSearchOption();
+                    case ("4"):
+                        ByPersonalNumber bpn = new ByPersonalNumber((setPersonalNumber()));
+                        searchStrategy = bpn.getSearchByPersonalNr();
+                        showSearchOption();
+                    default:
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("INVALID OPTION");
+                showSearchOption();
+            }
+        }
+        return searchStrategy;
+    }
+
+    private int setAge() {
+        System.out.println("Enter your age");
+        int input = scan.nextInt();
+        return input;
+    }
+
+
 }
