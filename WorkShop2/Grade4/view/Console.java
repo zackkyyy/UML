@@ -1,9 +1,9 @@
 package view;
 
 
+import model.MainController;
 import model.Boat;
 import model.BoatType;
-import model.MainController;
 import model.Member;
 import model.searchStrategies.*;
 
@@ -90,7 +90,7 @@ public class Console {
         String input = scan.next();
         switch (input) {
             case ("1"):
-                mainController.createMember(setName(), setPersonalNumber()); //calling the method create a member from main controller class
+                mainController.createMember(setName(), setPersonalNumber());
                 mainController.saveFile();
                 showMemberOptions();
                 break;

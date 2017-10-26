@@ -1,10 +1,7 @@
 package model;
 
 
-import model.Boat;
-import model.BoatType;
-import model.Member;
-
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,8 +9,8 @@ import java.util.Scanner;
 public class FileHandler {
 
     private int membersNr;
-    private File membersFile = new File("WorkShop2/Grade3/Members.txt");
-    private File boatsFile = new File("WorkShop2/Grade3/Boats.txt");
+    private File membersFile = new File("WorkShop2/Grade4/Members.txt");
+    private File boatsFile = new File("WorkShop2/Grade4/Boats.txt");
 
     public FileHandler() throws UnsupportedEncodingException, FileNotFoundException {
 
