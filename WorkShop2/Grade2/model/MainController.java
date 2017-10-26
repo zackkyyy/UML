@@ -1,9 +1,4 @@
-package controller;
-
-import model.Boat;
-import model.BoatType;
-import model.Member;
-import model.searchStrategies.ISearchStrategy;
+package model;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -123,14 +118,6 @@ public class MainController {
             System.out.println(++i + "    |" + boat.getBoatType() + "        |" + boat.getLength());
     }
 
-    public ArrayList<Member> search(ISearchStrategy searchStrategy) {
-        ArrayList<Member> foundMembers = new ArrayList<Member>();
-        for (Member m : this.memberList) {
-            if (searchStrategy.findMembers(m)) {
-                foundMembers.add(m);
-            }
-        }
-        return foundMembers;
-    }
+
 }
 

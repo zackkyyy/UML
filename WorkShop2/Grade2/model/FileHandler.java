@@ -1,9 +1,5 @@
-package controller;
+package model;
 
-
-import model.Boat;
-import model.BoatType;
-import model.Member;
 
 import java.io.*;
 import java.text.ParseException;

@@ -1,7 +1,7 @@
 package view;
 
 
-import controller.MainController;
+import model.MainController;
 import model.Boat;
 import model.BoatType;
 import model.Member;
