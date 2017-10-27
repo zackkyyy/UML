@@ -105,18 +105,7 @@ public class MainController {
         fileHandler.writeFile(memberList, nrOFMembers);
     }
 
-    /**
-     * method to show the user all the information about the member he asked
-     */
-    public void showChosenMembers(Member member) {
-        System.out.println("\nMEMBER ID: " + member.getID());
-        System.out.println("Name: \"" + member.getName() + "\" ,  Personal Number: " + member.getPersonalNumber() + "  has " + member.getNumberOfBoats() + " boats");
-        System.out.println(" No. |  BOAT TYPE  | LENGTH (m) ");
-        int i = 0;
-        // a list of the member's boats
-        for (Boat boat : member.getBoatList())
-            System.out.println(++i + "    |" + boat.getBoatType() + "        |" + boat.getLength());
-    }
+
 
 
 }

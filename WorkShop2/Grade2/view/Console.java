@@ -46,13 +46,12 @@ public class Console {
                 System.out.println("Welcome to the jolly pirate");
                 System.out.println("Enter your personal number");
                 String input1 = scan.next();
-                Member member;
                 while (!checkIndex(input1)){
                     System.err.println("Incorrect personal number");
                     input1=scan.next();
                 }
                 member = mainController.findMemberByPersonalNr((input1));
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
                 break;
             case ("2"):         // the user is an administrator and need a password to access
@@ -128,14 +127,13 @@ public class Console {
             case ("1"):
                 System.out.println("Enter the member's name");
                 String input2 = scan.next();
-                Member member;
                 while ( !checkIndex(input2)) {
                     System.err.println("The name you entered is not a member in the list");
                     input2 = scan.next();
 
                 }
                 member = mainController.findMemberByName(input2);
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
 
             case ("2"):
@@ -147,7 +145,7 @@ public class Console {
 
                 }
                 member = mainController.findMemberByPersonalNr((input3));
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
 
 
@@ -182,7 +180,7 @@ public class Console {
                     break;
                 case ("2"):
                     member = getMemberbyId();
-                    mainController.showChosenMembers(member);
+                    showChosenMembers(member);
                     editMemberInfo(member);
                     break;
                 case ("3"):
@@ -233,20 +231,20 @@ public class Console {
 
                 mainController.updateMember(member, setName(), member.getPersonalNumber());
                 mainController.saveFile();
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
 
                 break;
             case ("2"):
                 mainController.updateMember(member, member.getName(), setPersonalNumber());
                 mainController.saveFile();
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
                 break;
             case ("3"):
                 member.registerBoat(setLengthOfBoat(), setBoatType());
                 mainController.saveFile();
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
 
                 break;
@@ -261,7 +259,7 @@ public class Console {
                 boat = getBoat(member);
                 member.removeBoat(boat);
                 mainController.saveFile();
-                mainController.showChosenMembers(member);
+                showChosenMembers(member);
                 editMemberInfo(member);
 
                 break;
@@ -309,7 +307,7 @@ public class Console {
             return;
         }
         for (Member member : m)
-            mainController.showChosenMembers(member);
+            showChosenMembers(member);
     }
     /**
      * this function to close the program after saving all the changes
@@ -427,7 +425,7 @@ public class Console {
     private Boat getBoat(Member member) throws IOException {
         if (member.getNumberOfBoats() == 0) {
             System.err.println("The member you chose has no boats");
-            mainController.showChosenMembers(member);
+            showChosenMembers(member);
             editMemberInfo(member);
             return null;
         }
@@ -449,5 +447,17 @@ public class Console {
                 return true;
             }
         return false;
+    }
+    /**
+     * method to show the user all the information about the member he asked
+     */
+    public void showChosenMembers(Member member) {
+        System.out.println("\nMEMBER ID: " + member.getID());
+        System.out.println("Name: \"" + member.getName() + "\" ,  Personal Number: " + member.getPersonalNumber() + "  has " + member.getNumberOfBoats() + " boats");
+        System.out.println(" No. |  BOAT TYPE  | LENGTH (m) ");
+        int i = 0;
+        // a list of the member's boats
+        for (Boat boat : member.getBoatList())
+            System.out.println(++i + "    |" + boat.getBoatType() + "        |" + boat.getLength());
     }
 }
