@@ -1,9 +1,5 @@
 package model;
 
-import model.Boat;
-import model.BoatType;
-import model.FileHandler;
-import model.Member;
 import model.searchStrategies.ISearchStrategy;
 
 import java.io.IOException;
@@ -109,19 +105,6 @@ public class MainController {
     //save the final file by calling the method from the FileHandler class
     public void saveFile() throws IOException {
         fileHandler.writeFile(memberList, nrOFMembers);
-    }
-
-    /**
-     * method to show the user all the information about the member he asked
-     */
-    public void showChosenMembers(Member member) {
-        System.out.println("\nMEMBER ID: " + member.getID());
-        System.out.println("Name: \"" + member.getName() + "\" ,  Personal Number: " + member.getPersonalNumber() + "  has " + member.getNumberOfBoats() + " boats");
-        System.out.println(" No. |  BOAT TYPE  | LENGTH (m) ");
-        int i = 0;
-        // a list of the member's boats
-        for (Boat boat : member.getBoatList())
-            System.out.println(++i + "    |" + boat.getBoatType() + "        |" + boat.getLength());
     }
 
     public ArrayList<Member> search(ISearchStrategy searchStrategy) {

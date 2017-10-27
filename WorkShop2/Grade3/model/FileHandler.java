@@ -1,10 +1,7 @@
 package model;
 
 
-import model.Boat;
-import model.BoatType;
-import model.Member;
-
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
