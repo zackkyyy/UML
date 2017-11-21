@@ -30,7 +30,7 @@ public class Game {
 
     public boolean stand() {
         // TODO: Implement this according to Game_Stand.sequencediagram
-        return m_dealer.stand(m_player);
+        return m_dealer.stand();
     }
 
     public Iterable<Card> getDealerHand() {

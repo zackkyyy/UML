@@ -66,4 +66,22 @@ public class SwedishView implements IView {
         System.out.println("Poäng: " + a_score);
         System.out.println("");
     }
+
+    @Override
+    public command getCommand() {
+        int input = getInput();
+        switch (input) {
+            case ('p'):
+                return command.PLAY;
+            case ('h'):
+                return command.HIT;
+            case ('s'):
+                return command.STAND;
+            case ('q'):
+                return command.QUIT;
+            default:
+                System.out.println("Fel val!");
+                return command.INVALID;
+        }
+    }
 }

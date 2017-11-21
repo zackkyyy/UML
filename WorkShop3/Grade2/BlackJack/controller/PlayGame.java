@@ -3,7 +3,7 @@ package BlackJack.controller;
 import BlackJack.model.Game;
 import BlackJack.model.IObserver;
 import BlackJack.view.IView;
-
+import BlackJack.view.IView.command;
 public class PlayGame implements IObserver {
     //
     private IView a_view;
@@ -13,6 +13,7 @@ public class PlayGame implements IObserver {
         this.a_view = a_view;
         this.a_game = a_game;
         subscribe(this);
+
     }
 
     public boolean play() {
@@ -23,22 +24,26 @@ public class PlayGame implements IObserver {
             a_view.displayPlayerHand(a_game.getPlayerHand(), a_game.getPlayerScore());
             a_view.displayGameOver(a_game.isDealerWinner());
         }
-        //  a_view.displayDealerHand(a_game.getDealerHand(), a_game.getDealerScore());
-        // a_view.displayPlayerHand(a_game.getPlayerHand(), a_game.getPlayerScore());
 
 
-        int input = a_view.getInput();
-
-        if (input == 'p') {
-            a_game.newGame();
-        } else if (input == 'h') {
-            a_game.hit();
-        } else if (input == 's') {
-            a_game.stand();
+        command input = a_view.getCommand();
+        switch (input) {
+            case PLAY:
+                a_game.newGame();
+                break;
+            case HIT:
+                a_game.hit();
+                break;
+            case STAND:
+                a_game.stand();
+                break;
+            default:
+                break;
         }
-
-        return input != 'q';
+        return input != command.QUIT;
     }
+
+
 
     @Override
     public void update() {

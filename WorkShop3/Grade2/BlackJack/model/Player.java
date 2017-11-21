@@ -70,11 +70,6 @@ public class Player {
         return score;
     }
 
-    public void getNewCard(Player a_player, Boolean show) {
-        Card c = m_deck.getCard();
-        c.show(show);
-        a_player.dealCard(c);
-    }
 
 
     public void addSubscribers(IObserver a_subscriber) {

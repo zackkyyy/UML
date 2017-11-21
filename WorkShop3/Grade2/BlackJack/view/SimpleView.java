@@ -31,6 +31,24 @@ public class SimpleView implements IView {
         }
     }
 
+    @Override
+    public command getCommand() {
+        int input = getInput();
+        switch (input) {
+            case ('p'):
+                return command.PLAY;
+            case ('h'):
+                return command.HIT;
+            case ('s'):
+                return command.STAND;
+            case ('q'):
+                return command.QUIT;
+            default:
+                System.out.println("Wrong choice");
+                return command.INVALID;
+        }
+    }
+
     public void displayCard(BlackJack.model.Card a_card) {
         System.out.println("" + a_card.getValue() + " of " + a_card.getColor());
     }
